@@ -1,5 +1,6 @@
 #!/bin/sh
 # Check golang lint
+# chmod +x .git/hooks/pre-commit 设置权限
 if [ -f go.mod ] &&command -v golangci-lint >/dev/null; then
   golangci-lint run 1>&2
   if [ $? -ne 0 ]; then
