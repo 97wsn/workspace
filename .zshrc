@@ -70,7 +70,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -101,8 +101,27 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias redis-cli="docker exec -it -rm redis redis-cli"
 
+# set proxy 命令行终端翻墙
+proxy () {
+    export ALL_PROXY="http://10.64.144.165:8123"
+    export HTTP_PROXY="http://10.64.144.165:8123"
+    export HTTPS_PROXY="http://10.64.144.165:8123"
+    export NO_PROXY="https://goproxy.cn,git.verystar.cn,172.17.0.0/16"
+    echo "Proxy on to verystar"
+}
 
-
+# 取消命令行终端翻墙
+unproxy () {
+    unset ALL_PROXY
+    unset HTTP_PROXY
+    unset HTTPS_PROXY
+    echo "Proxy off"
+}
+# Nacos Pull Config
+export VERY_ALIYUN_ACCESS_KEY=xx
+export VERY_ALIYUN_ACCESS_SECRET=xx
+export VERY_ACM_NAMESPACE=xx
+export VERY_ACM_ENDPOINT="http://acm.aliyun.com:8080"
 # docker 清理
 dclear () {
     docker ps -qf status=exited | xargs docker rm
@@ -110,13 +129,32 @@ dclear () {
     docker images | grep '<none>' | awk '{print $3}' | xargs docker rmi -f
 }
 
+# php项目路径
+export WEBPATH=~/wwwroot
+
+# 开发环境配置中心
+export VERY_PAY_NACOS_NAMESPACE="pay-dev"
+export VERY_PAY_NACOS_USERNAME="xx"
+export VERY_PAY_NACOS_PASSWORD="xx"
+export VERY_PAY_NACOS_SERVER="https://nacos.verystar.net"
+
+# 开发环境数据库
+export DEV_DATABASE_HOST="10.64.144.105"
+export DEV_DATABASE_USERNAME="xx"
+export DEV_DATABASE_PASSWORD="xx"
+export DEBUG_SQL="true"
+
+#私有化部署项目数据库
+export DEV_DATABASE_HOST2="10.64.144.124"
+export DEV_DATABASE_USERNAME2="xx"
+export DEV_DATABASE_PASSWORD2="xx"
 
 #go 
 export GOPATH=$HOME/go
-export PATH=${GOPATH}/bin:${PATH}
+export PATH=${GOROOT}/bin:${GOPATH}/bin:${PATH}
 export GOPROXY=https://goproxy.verystar.net,https://goproxy.cn,https://goproxy.io,direct
 export GOPRIVATE=git.verystar.cn
-
+export GOROOT=$HOME/go/go1.23.0
 # nvm配置
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
@@ -128,6 +166,7 @@ export NODE_OPTIONS=--openssl-legacy-provider
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 #json辅助函数
+
 function json() {
   case $1 in
   "req")
@@ -154,4 +193,19 @@ function json() {
     ;;
   esac
 }
+
+
+
+replace () {  
+
+pbpaste | sed 's/.*/"&",/' | pbcopy
+
+}
+
+
+
+# curl请求 
+
+alias curltrace='curl -w "@$HOME/.curl-format" -o /dev/null -s'
+
 
