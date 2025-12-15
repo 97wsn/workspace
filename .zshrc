@@ -209,3 +209,11 @@ pbpaste | sed 's/.*/"&",/' | pbcopy
 alias curltrace='curl -w "@$HOME/.curl-format" -o /dev/null -s'
 
 
+
+# zhs-ai
+
+export ZSH_AI_PROVIDER="openai"
+export ZSH_AI_OPENAI_URL="h"
+export ZSH_AI_OPENAI_MODEL="gpt-4.1-mini"
+export OPENAI_API_KEY=""
+alias ai="zsh-ai"
