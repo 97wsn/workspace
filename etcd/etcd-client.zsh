@@ -1,5 +1,4 @@
 #!/bin/zsh
-# 官网地址： https://etcd.io/docs/v3.6/dev-internal/discovery_protocol/
 
 #公共服务发现
 # curl https://discovery.etcd.io/new?size=3

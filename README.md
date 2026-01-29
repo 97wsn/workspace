@@ -22,6 +22,8 @@
 清理软件的旧版 brew cleanup xxx
 如果你的homebre没有办法正常工作 可以执行brew doctor来开启homebrew自带的检查
 brew list 软件名 查看软件安装目录
+brew tap  brew tap 相当于给 Homebrew 「添加软件下载渠道」，添加后就能像安装官方软件一样，用 brew install 安装该第三方源里的软件
+brew untap 源名称。 移除不需要的源
 
 
 ```
