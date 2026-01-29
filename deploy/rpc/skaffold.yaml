@@ -1,0 +1,27 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+metadata:
+  name: giftcard-grpc
+build:
+  artifacts:
+  - image: giftcard-grpc
+    context: .
+    docker:
+      dockerfile: deploy/giftcard/rpc/Dockerfile
+      buildArgs:
+        PROJECT_NAME: giftcard
+  tagPolicy:
+    dateTime:
+      format: 2006-01-02-15-04-05
+      timezone: Local
+  local:
+    push: true
+deploy:
+  kubectl:
+    manifests:
+    - deploy/giftcard/rpc/k8s.local.yaml
+    flags:
+      apply:
+      - --force=true
+      - --grace-period=0
+  kubeContext: pay

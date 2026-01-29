@@ -1,0 +1,27 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+metadata:
+  name: admin-http
+build:
+  artifacts:
+  - image: admin-http
+    context: .
+    docker:
+      dockerfile: deploy/admin/Dockerfile
+      buildArgs:
+        PROJECT_NAME: admin
+  tagPolicy:
+    dateTime:
+      format: 2006-01-02-15-04-05
+      timezone: Local
+  local:
+    push: true
+deploy:
+  kubectl:
+    manifests:
+    - deploy/admin/k8s.local.yaml
+    flags:
+      apply:
+      - --force=true
+      - --grace-period=0
+  kubeContext: pay

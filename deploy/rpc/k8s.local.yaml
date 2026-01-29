@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: giftcard-grpc
+  namespace: pay
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: giftcard-grpc
+  template:
+    metadata:
+      labels:
+        app: giftcard-grpc
+    spec:
+      containers:
+        - image: giftcard-grpc
+          name: giftcard-grpc
+          envFrom:
+            - secretRef:
+                name: nacos-secret
